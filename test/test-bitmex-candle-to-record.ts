@@ -29,5 +29,3 @@ test('should convert fresh candles from the bitmex api to records', async t => {
         t.fail()
     }
 })
-
-// TODO: write tests
