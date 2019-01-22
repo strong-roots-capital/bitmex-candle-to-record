@@ -16,18 +16,27 @@ Use
 
 ```typescript
 import bitmexCandleToRecord from 'bitmex-candle-to-record'
-// TODO: describe usage
+import Record from 'timeseries-record'
+
+import { BitmexAPI } from 'bitmex-node'
+const bitmex = new BitmexAPI()
+
+(async () => {
+    const quotes = await bitmex.Trade.getBucketed({
+        binSize: '1d',
+        partial: false,
+        symbol: 'XBTUSD',
+        reverse: true
+    })
+    const records: Record[] = quotes.map(bitmexCandleToRecord)
+}) ()
 ```
 
 Related
 -------
 
-TODO
-
-Acknowledgments
----------------
-
-TODO
+*   [bitmex-node](https://www.npmjs.com/package/bitmex-node)
+*   [timeseries-record](https://github.com/strong-roots-capital/timeseries-record)
 
 ## Index
 
