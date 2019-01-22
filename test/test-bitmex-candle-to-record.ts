@@ -22,7 +22,7 @@ bitmex.Trade.getBucketed({
     count: 5
 }).then((candles: Candle[]) => {
 
-    test('should convert fresh candles from the bitmex api to records', async t => {
+    test('should convert fresh candles from the bitmex api to records', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '1d')
         t.deepEqual(moment(candles[0].timestamp).subtract(1, 'day').toDate(), new Date(record.Time))
         t.is(candles[0].open, record.Open)
