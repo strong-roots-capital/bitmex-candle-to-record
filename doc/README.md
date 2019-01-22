@@ -28,7 +28,7 @@ const bitmex = new BitmexAPI()
         symbol: 'XBTUSD',
         reverse: true
     })
-    const records: Record[] = quotes.map(bitmexCandleToRecord)
+    const records: Record[] = quotes.map(bitmexCandleToRecord, '1d')
 }) ()
 ```
 
