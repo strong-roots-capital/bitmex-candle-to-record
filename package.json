@@ -42,6 +42,8 @@
   "dependencies": {
     "@types/node": "^10.12.18",
     "bitmex-candle": "^1.0.0",
+    "moment": "^2.24.0",
+    "ow": "^0.10.0",
     "timeseries-record": "^1.0.0",
     "typescript": "^3.2.2"
   },
