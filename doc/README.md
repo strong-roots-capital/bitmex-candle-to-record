@@ -32,6 +32,11 @@ const bitmex = new BitmexAPI()
 }) ()
 ```
 
+Notes
+-----
+
+BitMEX stores the time of the candle _close_ in the `timestamp` field as opposed to the candle open (that most exchanges use). To convert this representation of a candle to a `Record` this API subtracts the length of the session from each `timestamp`, so the apparent time of a `Record` will not match its associated `Candle`.
+
 Related
 -------
 
