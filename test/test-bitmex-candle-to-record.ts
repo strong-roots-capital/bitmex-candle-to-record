@@ -31,23 +31,6 @@ bitmex.Trade.getBucketed({
         t.is(candles[0].close, record.Close)
     })
 
-    test('should throw ArgumentError when given an empty session', t => {
-        const error = t.throws(() => {
-            bitmexCandleToRecord(candles[0], '')
-        }, Error)
-        t.is(error.name, 'ArgumentError')
-    })
-
-    test('should throw ArgumentError when given an invalid session', t => {
-        const testStrings = ['5h', '4h', '5d', '1W', '1M', 'B5', '!!']
-        testStrings.forEach(str => {
-            const error = t.throws(() => {
-                bitmexCandleToRecord(candles[0], str)
-            }, Error)
-            t.is(error.name, 'ArgumentError')
-        })
-    })
-
     test('should subtract the session-length from timestamp (1m)', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '1m')
         t.deepEqual(moment(candles[0].timestamp).subtract(1, 'minute').toDate(), new Date(record.Time))
