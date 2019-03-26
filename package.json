@@ -1,6 +1,6 @@
 {
   "name": "bitmex-candle-to-record",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Map a BitMEX Candle to a talib Record",
   "main": "dist/bitmex-candle-to-record.js",
   "types": "dist/bitmex-candle-to-record.d.ts",
