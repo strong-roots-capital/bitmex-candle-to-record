@@ -40,6 +40,7 @@
   },
   "homepage": "https://github.com/strong-roots-capital/bitmex-candle-to-record",
   "dependencies": {
+    "@strong-roots-capital/bitmex-bin-size": "^1.0.0",
     "@types/node": "^10.12.18",
     "bitmex-candle": "^1.0.0",
     "moment": "^2.24.0",
