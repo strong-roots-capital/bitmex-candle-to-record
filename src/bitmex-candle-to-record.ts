@@ -1,30 +1,30 @@
 /**
  * bitmex-candle-to-record
- * Map a BitMEX Candle to a talib Record
+ * Map a BitMEX Candle to a talib TimeseriesRecord
  */
 
 import D from 'od'
 import ow from 'ow'
-import Record from 'timeseries-record'
+import TimeseriesRecord from 'timeseries-record'
 import BitmexCandle from 'bitmex-candle'
 import BinSize from '@strong-roots-capital/bitmex-bin-size'
 
 /**
  * Transform a Candle as returned from the BitMEX exchange API into a
- * Record used by talib.
+ * TimeseriesRecord used by talib.
  *
  * @remarks
  * `sessionLength` is required to convert the timestamp from
  * end-of-session to beginning-of-session.
  *
- * @param candle - Candle to convert into Record
+ * @param candle - Candle to convert into TimeseriesRecord
  * @param binSize - Timeframe of candle under conversion
- * @return `Candle` as Record
+ * @return `Candle` as TimeseriesRecord
  */
 function bitmexCandleToRecord(
     candle: BitmexCandle,
     binSize: BinSize
-): Record {
+): TimeseriesRecord {
 
     ow(binSize, ow.string.matches(/^(1[mhd]|5m)$/))
 
