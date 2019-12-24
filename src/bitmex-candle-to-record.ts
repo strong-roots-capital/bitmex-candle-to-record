@@ -3,8 +3,8 @@
  * Map a BitMEX Candle to a talib Record
  */
 
+import D from 'od'
 import ow from 'ow'
-import moment from 'moment'
 import Record from 'timeseries-record'
 import BitmexCandle from 'bitmex-candle'
 import BinSize from '@strong-roots-capital/bitmex-bin-size'
@@ -21,9 +21,11 @@ import BinSize from '@strong-roots-capital/bitmex-bin-size'
  * @param binSize - Timeframe of candle under conversion
  * @return `Candle` as Record
  */
-function bitmexCandleToRecord(candle: BitmexCandle, binSize: BinSize): Record {
+function bitmexCandleToRecord(
+    candle: BitmexCandle,
+    binSize: BinSize
+): Record {
 
-    ow(binSize, ow.string.not.empty)
     ow(binSize, ow.string.matches(/^(1[mhd]|5m)$/))
 
     return {
@@ -37,12 +39,12 @@ function bitmexCandleToRecord(candle: BitmexCandle, binSize: BinSize): Record {
 }
 
 function startOfCandle(candle: BitmexCandle, binSize: BinSize): number {
-    const timeQuantity = parseInt(binSize)
-    const timeUnit = binSize.endsWith('m') ? 'minutes'
+    const timeUnit = binSize.endsWith('m') ? 'minute'
         : binSize.endsWith('h') ? 'hour'
         : 'day'
-    const start = moment.utc(candle.timestamp).subtract(timeQuantity, timeUnit)
-    return start.valueOf()
+    const timeQuantity = parseInt(binSize)
+    const start = D.subtract(timeUnit, timeQuantity, D.of(candle.timestamp))
+    return start.getTime()
 }
 
 export default bitmexCandleToRecord

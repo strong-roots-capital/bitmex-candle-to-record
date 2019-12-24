@@ -1,8 +1,8 @@
 import test from 'ava'
 
+import D from 'od'
 import Candle from 'bitmex-candle'
 import Record from 'timeseries-record'
-import moment from 'moment'
 
 import { BitmexAPI } from 'bitmex-node'
 const bitmex = new BitmexAPI()
@@ -24,7 +24,10 @@ bitmex.Trade.getBucketed({
 
     test('should convert fresh candles from the bitmex api to records', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '1d')
-        t.deepEqual(moment(candles[0].timestamp).subtract(1, 'day').toDate(), new Date(record.Time))
+        t.deepEqual(
+            new Date(record.Time),
+            D.subtract('day', 1, D.of(candles[0].timestamp))
+        )
         t.is(candles[0].open, record.Open)
         t.is(candles[0].high, record.High)
         t.is(candles[0].low, record.Low)
@@ -33,25 +36,37 @@ bitmex.Trade.getBucketed({
 
     test('should subtract the session-length from timestamp (1m)', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '1m')
-        t.deepEqual(moment(candles[0].timestamp).subtract(1, 'minute').toDate(), new Date(record.Time))
+        t.deepEqual(
+            new Date(record.Time),
+            D.subtract('minute', 1, D.of(candles[0].timestamp))
+        )
     })
 
     test('should subtract the session-length from timestamp (5m)', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '5m')
-        t.deepEqual(moment(candles[0].timestamp).subtract(5, 'minute').toDate(), new Date(record.Time))
+        t.deepEqual(
+            new Date(record.Time),
+            D.subtract('minute', 5, D.of(candles[0].timestamp))
+        )
     })
 
     test('should subtract the session-length from timestamp (1h)', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '1h')
-        t.deepEqual(moment(candles[0].timestamp).subtract(1, 'hour').toDate(), new Date(record.Time))
+        t.deepEqual(
+            new Date(record.Time),
+            D.subtract('hour', 1, D.of(candles[0].timestamp))
+        )
     })
 
     test('should subtract the session-length from timestamp (1d)', t => {
         const record: Record = bitmexCandleToRecord(candles[0], '1d')
-        t.deepEqual(moment(candles[0].timestamp).subtract(1, 'day').toDate(), new Date(record.Time))
+        t.deepEqual(
+            new Date(record.Time),
+            D.subtract('day', 1, D.of(candles[0].timestamp))
+        )
     })
 }).catch((error: Error) => {
-    test('test should be able to query candles from bitmex', t => {
-        t.fail()
+    test('test should be able to query candles from bitmex', () => {
+        throw error
     })
 })
